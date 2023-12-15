@@ -1,5 +1,5 @@
-import { useGetUserQuery } from "../../../features/posts";
-import { IPost } from "../../../utils/types";
+import { useGetUserQuery } from "../../features/posts";
+import { IPost } from "../../utils/types";
 import styles from "./post.module.css";
 
 export const Post = (props: IPost) => {
@@ -25,14 +25,16 @@ export const Post = (props: IPost) => {
           src={`/users/photos/${author.id}.png`}
           alt="avatar"
         />
-        <hgroup>
-          <h2>{title}</h2>
+        <h2>{title}</h2>
+      </header>
+      <main>
+        <p>{body}</p>
+        <footer>
           <small>
             by: {author.name} | {author.username}
           </small>
-        </hgroup>
-      </header>
-      <p>{body}</p>
+        </footer>
+      </main>
     </article>
   );
 };

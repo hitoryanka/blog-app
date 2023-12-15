@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useGetAllPostsQuery } from "../../features/posts";
-import { Post } from "./Post/Post";
-import { IPost } from "../../utils/types";
+import { useGetAllPostsQuery } from "../../../features/posts";
+import { Post } from "../Post";
+import { IPost } from "../../../utils/types";
+import styles from "./posts.module.css";
 
 // TODO add pagination for posts
 export const Posts = () => {
@@ -15,7 +16,7 @@ export const Posts = () => {
     }
   }, [data]);
   return (
-    <section>
+    <section className={styles.posts}>
       {posts.map((post) => (
         // TODO find author in <Post />
         <Post
