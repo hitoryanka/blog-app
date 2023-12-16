@@ -12,6 +12,7 @@ function App() {
         <Nav />
       </header>
       <main className={styles.main}>
+        {/* <Modal /> */}
         <Posts />
       </main>
     </ApiProvider>
