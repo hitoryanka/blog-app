@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import { useGetUserQuery } from "../../features/posts";
-import { IPost } from "../../utils/types";
-import { Modal } from "../Modal/Modal";
+import { useGetUserQuery } from "../../../features/posts";
+import { IPost } from "../../../utils/types";
+import { Modal } from "../../Modal/Modal";
 import styles from "./post.module.css";
 import { createPortal } from "react-dom";
 

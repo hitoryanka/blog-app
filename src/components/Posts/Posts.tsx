@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useGetAllPostsQuery } from "../../../features/posts";
-import { Post } from "../Post";
-import { IPost } from "../../../utils/types";
 import styles from "./posts.module.css";
+import { IPost } from "../../utils/types";
+import { Post } from "./Post/Post";
+import { useGetAllPostsQuery } from "../../features/posts";
 
 // TODO add pagination for posts
 export const Posts = () => {
