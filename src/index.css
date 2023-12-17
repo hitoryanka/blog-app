@@ -11,8 +11,14 @@ body {
   background: linear-gradient(90deg, #2b584d 0%, #2a2e44 20% 80%, #2b584d 100%);
 }
 
+a {
+  all: unset;
+  cursor: pointer;
+}
+
 #root {
-  max-width: 1440px;
+  max-width: 1000px;
+  width: 85%;
 
   display: flex;
   gap: 50px;

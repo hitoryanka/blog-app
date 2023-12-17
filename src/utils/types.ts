@@ -1,13 +1,15 @@
 export interface IPost {
-  userId: number;
-  id: number;
+  userId: string;
+  id: string;
   title: string;
   body: string;
 }
 
 export interface IUser {
-  id: number;
+  id: string;
   name: string;
   username: string;
   email: string;
+  phone: string;
+  website: string;
 }

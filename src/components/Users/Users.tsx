@@ -1,4 +1,6 @@
 import { useGetAllUsersQuery } from "../../features/posts";
+import { User } from "./User/User";
+import styles from "./users.module.css";
 
 export const Users = () => {
   const { data } = useGetAllUsersQuery();
@@ -8,12 +10,13 @@ export const Users = () => {
   }
 
   return (
-    <>
+    <div className={styles.users}>
       {data.map((user) => (
-        <p key={user.id}>
-          {user.username} | {user.name}
-        </p>
+        <User
+          user={user}
+          key={user.id}
+        />
       ))}
-    </>
+    </div>
   );
 };

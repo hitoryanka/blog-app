@@ -21,7 +21,7 @@ export const postsApi = createApi({
       query: () => "users",
     }),
 
-    getUser: builder.query<IUser, number>({
+    getUser: builder.query<IUser, string>({
       query: (id) => `users/${id}`,
     }),
   }),

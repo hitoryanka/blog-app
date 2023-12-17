@@ -1,4 +1,4 @@
-article {
+.post {
   cursor: pointer;
   height: 364px;
   width: 300px;
@@ -8,21 +8,23 @@ article {
   align-items: center;
 
   border-radius: 25px;
-  /* padding: 20px; */
+
+  transition: all 250ms;
+
+  &:hover {
+    scale: 1.1;
+  }
 
   & > * {
     padding: 10px;
     box-sizing: border-box;
   }
 
-  /* background-color: white; */
-
   color: black;
 
   & > header {
     height: 68px;
     display: flex;
-    /* justify-content: center; */
     gap: 10px;
     text-overflow: ellipsis;
     backdrop-filter: blur(10px);
