@@ -27,7 +27,11 @@ article {
     text-overflow: ellipsis;
     backdrop-filter: blur(10px);
 
-    background-color: rgba(214, 214, 214, 0.1);
+    background: linear-gradient(
+      90deg,
+      rgba(69, 75, 115, 0.35) 0%,
+      rgba(77, 168, 147, 0.35) 100%
+    );
     width: 100%;
     border-radius: 25px 25px 0px 0px;
 

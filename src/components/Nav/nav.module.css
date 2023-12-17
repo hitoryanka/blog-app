@@ -7,6 +7,16 @@
 
     & > li {
       all: unset;
+
+      & > a {
+        all: unset;
+
+        cursor: pointer;
+
+        &:hover {
+          color: #e58c8a;
+        }
+      }
     }
   }
 }

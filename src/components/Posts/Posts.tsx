@@ -1,14 +1,25 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from "react";
 import styles from "./posts.module.css";
 import { IPost } from "../../utils/types";
 import { Post } from "./Post/Post";
-import { useGetAllPostsQuery } from "../../features/posts";
+import {
+  useGetAllPostsQuery,
+  useGetPostsOfUserQuery,
+} from "../../features/posts";
+
+interface PostsProps {
+  userId?: number;
+}
 
 // TODO add pagination for posts
-export const Posts = () => {
+export const Posts = ({ userId }: PostsProps) => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
-  const { data } = useGetAllPostsQuery();
+  // EsLint disabled for this file due to conditional hook usage
+  const { data } = userId
+    ? useGetPostsOfUserQuery(userId)
+    : useGetAllPostsQuery();
 
   useEffect(() => {
     if (data) {

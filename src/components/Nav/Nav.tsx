@@ -4,9 +4,15 @@ export const Nav = () => {
   return (
     <nav className={styles.nav}>
       <ul>
-        <li>All posts</li>
-        <li>Users</li>
-        <li>My posts</li>
+        <li>
+          <a href="">All posts</a>
+        </li>
+        <li>
+          <a href="">Users</a>
+        </li>
+        <li>
+          <a href="">My posts</a>
+        </li>
       </ul>
     </nav>
   );
