@@ -4,6 +4,7 @@ import { postsApi } from "./features/posts";
 import { Nav } from "./components/Nav/Nav";
 import { Posts } from "./components/Posts/Posts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Users } from "./components/Users/Users";
 // TODO split app into pages: posts, users, me
 
 function App() {
@@ -13,8 +14,12 @@ function App() {
       element: <Posts />,
     },
     {
-      path: "/user/:userId",
+      path: "/users/:userId",
       element: <Posts />,
+    },
+    {
+      path: "/users",
+      element: <Users />,
     },
   ]);
 

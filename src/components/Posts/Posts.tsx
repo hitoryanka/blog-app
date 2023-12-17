@@ -4,22 +4,19 @@ import styles from "./posts.module.css";
 import { IPost } from "../../utils/types";
 import { Post } from "./Post/Post";
 import {
-  useGetAllPostsQuery,
-  useGetPostsOfUserQuery,
+  useGetPostsQuery,
+  // useGetPostsOfUserQuery,
 } from "../../features/posts";
 
-interface PostsProps {
-  userId?: number;
-}
-
 // TODO add pagination for posts
-export const Posts = ({ userId }: PostsProps) => {
+export const Posts = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
-  // EsLint disabled for this file due to conditional hook usage
-  const { data } = userId
-    ? useGetPostsOfUserQuery(userId)
-    : useGetAllPostsQuery();
+  const userId = location.pathname.includes("users")
+    ? location.pathname.split("/").at(-1)
+    : undefined;
+
+  const { data } = useGetPostsQuery(userId);
 
   useEffect(() => {
     if (data) {
