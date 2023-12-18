@@ -7,18 +7,25 @@ export const postsApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com/",
   }),
   endpoints: (builder) => ({
-    getAllPosts: builder.query<IPost[], void>({
-      query: () => "posts",
+    getPosts: builder.query<IPost[], string | undefined>({
+      query: (userId) => {
+        if (userId) {
+          return `users/${userId}/posts`;
+        }
+
+        return "posts";
+      },
     }),
+
     getAllUsers: builder.query<IUser[], void>({
       query: () => "users",
     }),
 
-    getUser: builder.query<IUser, number>({
+    getUser: builder.query<IUser, string>({
       query: (id) => `users/${id}`,
     }),
   }),
 });
 
-export const { useGetAllPostsQuery, useGetAllUsersQuery, useGetUserQuery } =
+export const { useGetPostsQuery, useGetAllUsersQuery, useGetUserQuery } =
   postsApi;

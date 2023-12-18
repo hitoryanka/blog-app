@@ -3,17 +3,33 @@ import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { postsApi } from "./features/posts";
 import { Nav } from "./components/Nav/Nav";
 import { Posts } from "./components/Posts/Posts";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Users } from "./components/Users/Users";
 // TODO split app into pages: posts, users, me
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Posts />,
+    },
+    {
+      path: "/users/:userId",
+      element: <Posts />,
+    },
+    {
+      path: "/users",
+      element: <Users />,
+    },
+  ]);
+
   return (
     <ApiProvider api={postsApi}>
       <header className={styles.header}>
         <Nav />
       </header>
       <main className={styles.main}>
-        {/* <Modal /> */}
-        <Posts />
+        <RouterProvider router={router} />
       </main>
     </ApiProvider>
   );

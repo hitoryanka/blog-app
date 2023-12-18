@@ -7,6 +7,10 @@
 
     & > li {
       all: unset;
+
+      & > a:hover {
+        color: #e58c8a;
+      }
     }
   }
 }
