@@ -7,7 +7,7 @@ export const postsApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com/",
   }),
   endpoints: (builder) => ({
-    getPosts: builder.query<IPost[], string | undefined>({
+    getPosts: builder.query<IPost[], string | void>({
       query: (userId) => {
         if (userId) {
           return `users/${userId}/posts`;

@@ -6,6 +6,7 @@ import { Header } from "./components/Header/Header";
 import { createContext, useEffect, useState } from "react";
 import { IDataContext, IPost, IUser } from "./utils/types";
 import { useGetAllUsersQuery, useGetPostsQuery } from "./features/posts";
+import { getUserId } from "./utils/lib";
 // TODO split app into pages: posts, users, me
 
 // const initialData: IDataContext = {
@@ -41,9 +42,8 @@ function App() {
     users: [users, setUsers],
   };
 
-  const userId = location.pathname.includes("users")
-    ? location.pathname.split("/").at(-1)
-    : undefined;
+  // TODO use React router for that
+  const userId = getUserId();
 
   const { data: postsData } = useGetPostsQuery(userId);
   const { data: usersData } = useGetAllUsersQuery();

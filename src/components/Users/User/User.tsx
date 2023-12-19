@@ -9,13 +9,8 @@ interface UserProps {
 export const User = ({ user }: UserProps) => {
   const { id, username, name, email, phone, website } = user;
 
+  // use context for that
   const { data } = useGetPostsQuery(id);
-
-  let cnt: number | string = "loading...";
-
-  if (data) {
-    cnt = data.length;
-  }
 
   return (
     <a
@@ -32,7 +27,7 @@ export const User = ({ user }: UserProps) => {
             {username} | {name}
           </h2>
         </header>
-        <main>posts written: {cnt}</main>
+        <main>posts written: {data?.length ?? "loading..."}</main>
         <footer>
           Contact info:
           <ul>
