@@ -15,6 +15,6 @@ export interface IUser {
 }
 
 export interface IDataContext {
-  posts: IPost[];
-  users: IUser[];
+  posts: [IPost[], React.Dispatch<React.SetStateAction<IPost[]>>];
+  users: [IUser[], React.Dispatch<React.SetStateAction<IUser[]>>];
 }

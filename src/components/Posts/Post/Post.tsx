@@ -1,5 +1,4 @@
 import { useContext, useRef, useState } from "react";
-import { useGetUserQuery } from "../../../features/posts";
 import { IPost } from "../../../utils/types";
 import { Modal } from "../../Modal/Modal";
 import styles from "./post.module.css";
@@ -10,14 +9,10 @@ export const Post = (props: IPost) => {
   const { title, body, userId } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const author = {
-  //   id: 0,
-  //   name: "unknown",
-  //   username: "unknown",
-  //   email: "unknown@gmail.com",
-  // };
 
-  const { users } = useContext(DataContext);
+  const {
+    users: [users],
+  } = useContext(DataContext);
 
   const author = users.find((user) => user.id === userId);
 

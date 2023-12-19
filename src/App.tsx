@@ -1,45 +1,70 @@
 import styles from "./App.module.css";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { postsApi } from "./features/posts";
 import { Posts } from "./components/Posts/Posts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Users } from "./components/Users/Users";
 import { Header } from "./components/Header/Header";
-import { createContext } from "react";
-import { IDataContext } from "./utils/types";
+import { createContext, useEffect, useState } from "react";
+import { IDataContext, IPost, IUser } from "./utils/types";
+import { useGetAllUsersQuery, useGetPostsQuery } from "./features/posts";
 // TODO split app into pages: posts, users, me
 
-const initialData: IDataContext = {
-  users: [],
-  posts: [],
-};
-export const DataContext = createContext(initialData);
+// const initialData: IDataContext = {
+//   users: [],
+//   posts: [],
+// };
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Posts />,
+  },
+  {
+    path: "/users/:userId",
+    element: <Posts />,
+  },
+  {
+    path: "/users",
+    element: <Users />,
+  },
+]);
+
+export const DataContext = createContext<IDataContext>({
+  users: [[], () => {}],
+  posts: [[], () => {}],
+});
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Posts />,
-    },
-    {
-      path: "/users/:userId",
-      element: <Posts />,
-    },
-    {
-      path: "/users",
-      element: <Users />,
-    },
-  ]);
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
+
+  const initialData: IDataContext = {
+    posts: [posts, setPosts],
+    users: [users, setUsers],
+  };
+
+  const userId = location.pathname.includes("users")
+    ? location.pathname.split("/").at(-1)
+    : undefined;
+
+  const { data: postsData } = useGetPostsQuery(userId);
+  const { data: usersData } = useGetAllUsersQuery();
+
+  useEffect(() => {
+    if (postsData) {
+      setPosts(postsData);
+    }
+
+    if (usersData) {
+      setUsers(usersData);
+    }
+  }, [postsData, usersData]);
 
   return (
-    <ApiProvider api={postsApi}>
-      <DataContext.Provider value={initialData}>
-        <Header />
-        <main className={styles.main}>
-          <RouterProvider router={router} />
-        </main>
-      </DataContext.Provider>
-    </ApiProvider>
+    <DataContext.Provider value={initialData}>
+      <Header />
+      <main className={styles.main}>
+        <RouterProvider router={router} />
+      </main>
+    </DataContext.Provider>
   );
 }
 
