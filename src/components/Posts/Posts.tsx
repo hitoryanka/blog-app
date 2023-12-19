@@ -1,37 +1,45 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import styles from "./posts.module.css";
-import { IPost } from "../../utils/types";
 import { Post } from "./Post/Post";
 import {
+  useGetAllUsersQuery,
   useGetPostsQuery,
   // useGetPostsOfUserQuery,
 } from "../../features/posts";
+import { DataContext } from "../../App";
 
 // TODO add pagination for posts
 export const Posts = () => {
-  const [posts, setPosts] = useState<IPost[]>([]);
+  // const [posts, setPosts] = useState<IPost[]>([]);
+
+  const data = useContext(DataContext);
 
   const userId = location.pathname.includes("users")
     ? location.pathname.split("/").at(-1)
     : undefined;
 
-  const { data } = useGetPostsQuery(userId);
+  const { data: postsData, isLoading: isPostsLoading } =
+    useGetPostsQuery(userId);
+  const { data: usersData } = useGetAllUsersQuery();
 
-  useEffect(() => {
-    if (data) {
-      setPosts(data);
-    }
-  }, [data]);
+  if (postsData) {
+    data.posts = postsData;
+  }
+
+  if (usersData) {
+    data.users = usersData;
+  }
+
   return (
     <section className={styles.posts}>
-      {posts.map((post) => (
-        // TODO find author in <Post />
-        <Post
-          {...post}
-          key={post.id}
-        />
-      ))}
+      {!isPostsLoading &&
+        data.posts.map((post) => (
+          <Post
+            {...post}
+            key={post.id}
+          />
+        ))}
     </section>
   );
 };

@@ -13,3 +13,8 @@ export interface IUser {
   phone: string;
   website: string;
 }
+
+export interface IDataContext {
+  posts: IPost[];
+  users: IUser[];
+}

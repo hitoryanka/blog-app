@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useGetUserQuery } from "../../../features/posts";
 import { IPost } from "../../../utils/types";
 import { Modal } from "../../Modal/Modal";
 import styles from "./post.module.css";
 import { createPortal } from "react-dom";
+import { DataContext } from "../../../App";
 
 export const Post = (props: IPost) => {
   const { title, body, userId } = props;
@@ -16,16 +17,20 @@ export const Post = (props: IPost) => {
   //   email: "unknown@gmail.com",
   // };
 
-  const { data: author } = useGetUserQuery(userId);
+  const { users } = useContext(DataContext);
+
+  const author = users.find((user) => user.id === userId);
+
   const ref = useRef<HTMLDialogElement>(document.querySelector("#post-modal"));
+
+  if (!author) {
+    return <h2>this post was written by nobody</h2>;
+  }
 
   if (!ref.current) {
     throw new Error("ref doesn't link to an element");
   }
   const dialog = ref.current;
-  if (!author) {
-    return <h2>loading...</h2>;
-  }
 
   const openModal = () => {
     setIsModalOpen(true);
