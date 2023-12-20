@@ -9,19 +9,38 @@ export const postsApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com/",
   }),
   endpoints: (builder) => ({
-    getPosts: builder.query<IPost[], string | void>({
-      query: (userId) => {
-        console.log("refetch");
+    getPosts: builder.query<IPost[], [string | null, string]>({
+      query: ([userId, search]) => {
+        let path = "posts";
         if (userId) {
-          return `users/${userId}/posts`;
+          path = `users/${userId}/posts`;
         }
 
-        return "posts";
+        if (search) {
+          path += `?title_like=${search}`;
+        }
+
+        return path;
       },
     }),
 
-    getAllUsers: builder.query<IUser[], void>({
-      query: () => "users",
+    getUsersPostCnt: builder.query<number, string>({
+      query: (userId) => {
+        return `users/${userId}/posts`;
+      },
+      transformResponse: (response: IPost[]) => {
+        return response.length;
+      },
+    }),
+
+    getUsers: builder.query<IUser[], string | void>({
+      query: (search) => {
+        if (search) {
+          return `users/?name_like=${search}`;
+        }
+
+        return "users";
+      },
     }),
 
     getUser: builder.query<IUser, string>({
@@ -30,5 +49,9 @@ export const postsApi = createApi({
   }),
 });
 
-export const { useGetPostsQuery, useGetAllUsersQuery, useGetUserQuery } =
-  postsApi;
+export const {
+  useGetPostsQuery,
+  useGetUsersQuery,
+  useGetUserQuery,
+  useGetUsersPostCntQuery,
+} = postsApi;

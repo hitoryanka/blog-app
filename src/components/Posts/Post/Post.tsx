@@ -32,6 +32,7 @@ export const Post = ({ post, author }: PostProps) => {
         createPortal(
           <Modal
             post={post}
+            author={author}
             dialog={dialog}
             setIsModalOpen={setIsModalOpen}
           />,

@@ -1,21 +1,30 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import styles from "./posts.module.css";
 import { Post } from "./Post/Post";
-import { useGetAllUsersQuery, useGetPostsQuery } from "../../features/posts";
+import { useGetPostsQuery, useGetUsersQuery } from "../../features/posts";
+import { useSearchParams } from "react-router-dom";
+import { useContext } from "react";
+import { SearchContext } from "../../App";
 
 // TODO add pagination for posts
 export const Posts = () => {
   // TODO use isFetching to grey out posts
+
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("userId");
+
+  const [searchValue] = useContext(SearchContext);
+
   const {
     data: posts,
     isLoading: isPostsLoading,
-    isError: postsError,
-  } = useGetPostsQuery();
+    // isError: postsError,
+  } = useGetPostsQuery([userId, searchValue]);
   const {
     data: users,
-    isLoading: isUsersLoading,
-    isError: usersError,
-  } = useGetAllUsersQuery();
+    // isLoading: isUsersLoading,
+    // isError: usersError,
+  } = useGetUsersQuery();
 
   if (isPostsLoading) {
     return <h2>posts are loading...</h2>;
