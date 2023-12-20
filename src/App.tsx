@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Users } from "./components/Users/Users";
 import { Header } from "./components/Header/Header";
 import { createContext, SetStateAction, useState } from "react";
+import { Auth } from "./components/Auth/Auth";
 
 // TODO Authentication (https://redux-toolkit.js.org/rtk-query/usage/examples#authentication)
 // TODO use RTK Query instead of Context API
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/users",
     element: <Users />,
+  },
+  {
+    path: "/sign-in",
+    element: <Auth />,
   },
 ]);
 
