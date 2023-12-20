@@ -13,8 +13,3 @@ export interface IUser {
   phone: string;
   website: string;
 }
-
-export interface IDataContext {
-  posts: [IPost[], React.Dispatch<React.SetStateAction<IPost[]>>];
-  users: [IUser[], React.Dispatch<React.SetStateAction<IUser[]>>];
-}

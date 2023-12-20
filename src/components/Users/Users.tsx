@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useGetAllUsersQuery } from "../../features/posts";
 import { User } from "./User/User";
 import styles from "./users.module.css";
-import { DataContext } from "../../App";
 
 export const Users = () => {
-  const {
-    users: [users],
-  } = useContext(DataContext);
+  const { data: users = [], isLoading } = useGetAllUsersQuery();
+
+  if (isLoading) {
+    return <h2>loading...</h2>;
+  }
 
   return (
     <div className={styles.users}>
