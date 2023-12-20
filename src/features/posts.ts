@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IPost, IUser } from "../utils/types";
 
+// LEARN what else can fetchBaseQuery() do?
+
 export const postsApi = createApi({
   reducerPath: "postsAPi",
   baseQuery: fetchBaseQuery({
@@ -9,6 +11,7 @@ export const postsApi = createApi({
   endpoints: (builder) => ({
     getPosts: builder.query<IPost[], string | void>({
       query: (userId) => {
+        console.log("refetch");
         if (userId) {
           return `users/${userId}/posts`;
         }

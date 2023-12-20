@@ -9,6 +9,7 @@ import { getUserId, isUserPage } from "../../../utils/lib";
 export const Search = () => {
   const [imgSrc, setImgSrc] = useState(search);
 
+  // TODO use ref to update URL search param
   const ref = useRef<HTMLInputElement>(null);
 
   const {
