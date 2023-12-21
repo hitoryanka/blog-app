@@ -3,7 +3,7 @@ import { Posts } from "./components/Posts/Posts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Users } from "./components/Users/Users";
 import { Header } from "./components/Header/Header";
-import { createContext, SetStateAction, useState } from "react";
+import { createContext, SetStateAction, useMemo, useState } from "react";
 import { Signin } from "./components/Auth/signin/Signin";
 import { Signup } from "./components/Auth/signup/Signup";
 
@@ -39,12 +39,15 @@ export const SearchContext = createContext<
 >(["", () => {}]);
 
 function App() {
-  // TODO use React router for that
-
   const [search, setSearch] = useState("");
 
+  const contextData = useMemo<[string, React.Dispatch<SetStateAction<string>>]>(
+    () => [search, setSearch],
+    [search, setSearch]
+  );
+
   return (
-    <SearchContext.Provider value={[search, setSearch]}>
+    <SearchContext.Provider value={contextData}>
       <Header />
       <main className={styles.main}>
         <RouterProvider router={router} />
