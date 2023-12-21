@@ -13,3 +13,9 @@ export interface IUser {
   phone: string;
   website: string;
 }
+
+export interface IAuthUser {
+  name: string;
+  username: string;
+  password: string;
+}
