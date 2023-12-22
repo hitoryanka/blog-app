@@ -6,21 +6,42 @@ export const Signup = () => {
   const [errMessage, setErrMessage] = useState("");
   const users: IAuthUser[] = JSON.parse(localStorage.getItem("users") ?? "[]");
 
-  const username = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
-  const repeatPassword = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const repeatPasswordRef = useRef<HTMLInputElement>(null);
 
   const handleSignup = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (users.find((user) => user.username !== username.current?.value)) {
-      setErrMessage(`user named ${username.current?.value} exists`);
+    if (
+      usernameRef.current === null ||
+      passwordRef.current === null ||
+      repeatPasswordRef.current === null
+    ) {
+      throw new Error("bad refs");
+    }
+
+    const username = usernameRef.current.value;
+    const password = passwordRef.current.value;
+    const repeatPassword = repeatPasswordRef.current.value;
+
+    if (users.find((user) => user.username !== username)) {
+      setErrMessage(`user named ${username} exists`);
       return;
     }
 
-    if (password.current?.value !== repeatPassword.current?.value) {
+    if (password !== repeatPassword) {
       setErrMessage("passwords do not match");
+      return;
     }
+
+    users.push({
+      username,
+      password,
+    });
+
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("logged", "");
   };
 
   return (
@@ -36,7 +57,7 @@ export const Signup = () => {
           required
           type="text"
           id="username"
-          ref={username}
+          ref={usernameRef}
         />
       </div>
       <div>
@@ -45,16 +66,16 @@ export const Signup = () => {
           required
           type="password"
           id="password"
-          ref={password}
+          ref={passwordRef}
         />
       </div>
       <div>
         <label htmlFor="repeat-password">repeat password</label>
         <input
           required
-          type="text"
+          type="password"
           id="repeat-password"
-          ref={repeatPassword}
+          ref={repeatPasswordRef}
         />
       </div>
       {errMessage && <p className={styles.error}>{errMessage}</p>}

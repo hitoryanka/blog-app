@@ -7,7 +7,7 @@ export const AuthButtons = () => {
         <a href="./signin">Sign in</a>
       </button>
       <button>
-        <a href="./singup">Sign up</a>
+        <a href="./signup">Sign up</a>
       </button>
     </div>
   );

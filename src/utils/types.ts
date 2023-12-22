@@ -15,7 +15,6 @@ export interface IUser {
 }
 
 export interface IAuthUser {
-  name: string;
   username: string;
   password: string;
 }

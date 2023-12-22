@@ -29,7 +29,7 @@ export const Signin = () => {
       return;
     }
 
-    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("logged", "");
   };
 
   return (
