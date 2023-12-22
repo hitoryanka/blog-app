@@ -1,37 +1,48 @@
 import styles from "./App.module.css";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { postsApi } from "./features/posts";
-import { Nav } from "./components/Nav/Nav";
 import { Posts } from "./components/Posts/Posts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Users } from "./components/Users/Users";
-// TODO split app into pages: posts, users, me
+import { Header } from "./components/Header/Header";
+import { createContext, SetStateAction, useMemo, useState } from "react";
+
+// TODO Authentication (https://redux-toolkit.js.org/rtk-query/usage/examples#authentication)
+// TODO use RTK Query instead of Context API
+// TODO use Context API to provide theme
+// TODO add styles for loading process (*and failed queries) (RTK Query)
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Posts />,
+  },
+  {
+    path: "/users/:userId",
+    element: <Posts />,
+  },
+  {
+    path: "/users",
+    element: <Users />,
+  },
+]);
+
+export const SearchContext = createContext<
+  [string, React.Dispatch<SetStateAction<string>>]
+>(["", () => {}]);
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Posts />,
-    },
-    {
-      path: "/users/:userId",
-      element: <Posts />,
-    },
-    {
-      path: "/users",
-      element: <Users />,
-    },
-  ]);
+  const [search, setSearch] = useState("");
+
+  const contextData = useMemo<[string, React.Dispatch<SetStateAction<string>>]>(
+    () => [search, setSearch],
+    [search, setSearch]
+  );
 
   return (
-    <ApiProvider api={postsApi}>
-      <header className={styles.header}>
-        <Nav />
-      </header>
+    <SearchContext.Provider value={contextData}>
+      <Header />
       <main className={styles.main}>
         <RouterProvider router={router} />
       </main>
-    </ApiProvider>
+    </SearchContext.Provider>
   );
 }
 

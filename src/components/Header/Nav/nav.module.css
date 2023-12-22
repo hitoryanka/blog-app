@@ -1,9 +1,10 @@
 .nav {
-  width: 100%;
+  width: 50%;
 
   & > ul {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 40px;
 
     & > li {
       all: unset;

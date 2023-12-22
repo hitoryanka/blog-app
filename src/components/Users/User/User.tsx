@@ -1,4 +1,4 @@
-import { useGetPostsQuery } from "../../../features/posts";
+import { useGetUsersPostCntQuery } from "../../../features/posts";
 import { IUser } from "../../../utils/types";
 import styles from "./user.module.css";
 
@@ -9,17 +9,12 @@ interface UserProps {
 export const User = ({ user }: UserProps) => {
   const { id, username, name, email, phone, website } = user;
 
-  const { data } = useGetPostsQuery(id);
-
-  let cnt: number | string = "loading...";
-
-  if (data) {
-    cnt = data.length;
-  }
+  // use context for that
+  const { data: postsWritten } = useGetUsersPostCntQuery(id);
 
   return (
     <a
-      href={`/users/${id}`}
+      href={`/?userId=${id}`}
       className={styles["user-wrapper"]}
     >
       <article className={styles.user}>
@@ -32,7 +27,7 @@ export const User = ({ user }: UserProps) => {
             {username} | {name}
           </h2>
         </header>
-        <main>posts written: {cnt}</main>
+        <main>posts written: {postsWritten ?? "loading..."}</main>
         <footer>
           Contact info:
           <ul>

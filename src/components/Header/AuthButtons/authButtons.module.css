@@ -1,0 +1,8 @@
+.auth {
+  display: flex;
+  gap: 20px;
+
+  & button:hover {
+    color: #e58c8a;
+  }
+}

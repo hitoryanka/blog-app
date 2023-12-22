@@ -1,31 +1,25 @@
 import { useRef, useState } from "react";
-import { useGetUserQuery } from "../../../features/posts";
-import { IPost } from "../../../utils/types";
+import { IPost, IUser } from "../../../utils/types";
 import { Modal } from "../../Modal/Modal";
 import styles from "./post.module.css";
 import { createPortal } from "react-dom";
 
-export const Post = (props: IPost) => {
-  const { title, body, userId } = props;
+interface PostProps {
+  post: IPost;
+  author: IUser | undefined;
+}
+
+export const Post = ({ post, author }: PostProps) => {
+  const { title, body } = post;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const author = {
-  //   id: 0,
-  //   name: "unknown",
-  //   username: "unknown",
-  //   email: "unknown@gmail.com",
-  // };
 
-  const { data: author } = useGetUserQuery(userId);
   const ref = useRef<HTMLDialogElement>(document.querySelector("#post-modal"));
 
   if (!ref.current) {
     throw new Error("ref doesn't link to an element");
   }
   const dialog = ref.current;
-  if (!author) {
-    return <h2>loading...</h2>;
-  }
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -37,7 +31,8 @@ export const Post = (props: IPost) => {
       {isModalOpen &&
         createPortal(
           <Modal
-            post={props}
+            post={post}
+            author={author}
             dialog={dialog}
             setIsModalOpen={setIsModalOpen}
           />,
@@ -49,7 +44,7 @@ export const Post = (props: IPost) => {
       >
         <header>
           <img
-            src={`/users/photos/${author.id}.png`}
+            src={`/users/photos/${author?.id}.png`}
             alt="avatar"
           />
           <h2>{title}</h2>
@@ -58,7 +53,8 @@ export const Post = (props: IPost) => {
           <p>{body}</p>
           <footer>
             <small>
-              by: {author.name} | {author.username}
+              by:{" "}
+              {author ? `${author.name} | ${author.username}` : "loading..."}
             </small>
           </footer>
         </main>

@@ -9,9 +9,11 @@ body {
   display: flex;
   justify-content: center;
   background: linear-gradient(90deg, #2b584d 0%, #2a2e44 20% 80%, #2b584d 100%);
+  margin-bottom: 200px;
 }
 
-a {
+a,
+button {
   all: unset;
   cursor: pointer;
 }
