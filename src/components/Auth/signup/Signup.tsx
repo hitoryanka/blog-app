@@ -1,6 +1,7 @@
 import { SyntheticEvent, useRef, useState } from "react";
 import styles from "./signup.module.css";
 import { IAuthUser } from "../../../utils/types";
+import { useNavigate } from "react-router";
 
 export const Signup = () => {
   const [errMessage, setErrMessage] = useState("");
@@ -9,6 +10,8 @@ export const Signup = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const repeatPasswordRef = useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
 
   const handleSignup = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ export const Signup = () => {
     const password = passwordRef.current.value;
     const repeatPassword = repeatPasswordRef.current.value;
 
-    if (users.find((user) => user.username !== username)) {
+    if (users.find((user) => user.username === username)) {
       setErrMessage(`user named ${username} exists`);
       return;
     }
@@ -38,10 +41,19 @@ export const Signup = () => {
     users.push({
       username,
       password,
+      posts: [],
     });
 
     localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("logged", "");
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify({
+        username,
+        posts: [],
+      })
+    );
+
+    return navigate("/my-posts");
   };
 
   return (

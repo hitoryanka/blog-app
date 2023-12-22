@@ -1,11 +1,10 @@
-import styles from "./App.module.css";
 import { Posts } from "./components/Posts/Posts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Users } from "./components/Users/Users";
 import { Header } from "./components/Header/Header";
 import { createContext, SetStateAction, useMemo, useState } from "react";
 import { Signin } from "./components/Auth/signin/Signin";
 import { Signup } from "./components/Auth/signup/Signup";
+import { MyPosts } from "./components/MyPosts/MyPosts";
 
 // TODO Authentication (https://redux-toolkit.js.org/rtk-query/usage/examples#authentication)
 // TODO use RTK Query instead of Context API
@@ -14,15 +13,30 @@ import { Signup } from "./components/Auth/signup/Signup";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Posts />,
+    element: (
+      <>
+        <Header />
+        <Posts />
+      </>
+    ),
   },
   {
     path: "/users/:userId",
-    element: <Posts />,
+    element: (
+      <>
+        <Header />
+        <Posts />
+      </>
+    ),
   },
   {
     path: "/users",
-    element: <Users />,
+    element: (
+      <>
+        <Header />
+        <Posts />
+      </>
+    ),
   },
   {
     path: "/signin",
@@ -31,6 +45,14 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/my-posts",
+    element: (
+      <>
+        <Header /> <MyPosts />
+      </>
+    ),
   },
 ]);
 
@@ -48,10 +70,11 @@ function App() {
 
   return (
     <SearchContext.Provider value={contextData}>
-      <Header />
+      <RouterProvider router={router} />
+      {/* <Header />
       <main className={styles.main}>
         <RouterProvider router={router} />
-      </main>
+      </main> */}
     </SearchContext.Provider>
   );
 }

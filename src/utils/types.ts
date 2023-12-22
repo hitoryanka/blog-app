@@ -17,4 +17,5 @@ export interface IUser {
 export interface IAuthUser {
   username: string;
   password: string;
+  posts: Omit<IPost, "userId">[];
 }

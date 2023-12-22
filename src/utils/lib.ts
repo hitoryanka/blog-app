@@ -7,3 +7,7 @@ export function getUserId() {
 export function isUserPage() {
   return location.pathname.split("/").at(-1) === "users";
 }
+
+export function isAuthorized() {
+  return localStorage.getItem("currentUser") !== null;
+}

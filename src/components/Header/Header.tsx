@@ -9,15 +9,11 @@ export const AuthContext = createContext<boolean>(false);
 export const Header = () => {
   const isAuthPage = location.pathname.includes("sign");
 
-  const isAuthorized = localStorage.getItem("logged") !== null;
-
   return (
     <header className={isAuthPage ? styles.hide : styles.header}>
-      <AuthContext.Provider value={isAuthorized}>
-        <Nav />
-        <Search />
-        <AuthButtons />
-      </AuthContext.Provider>
+      <Nav />
+      <Search />
+      <AuthButtons />
     </header>
   );
 };

@@ -1,21 +1,29 @@
 import { SyntheticEvent, useRef, useState } from "react";
 import { IAuthUser } from "../../../utils/types";
 import styles from "./signin.module.css";
+import { useNavigate } from "react-router";
 
 export const Signin = () => {
   const users: IAuthUser[] = JSON.parse(localStorage.getItem("users") ?? "[]");
 
   const [errMessage, setErrMessage] = useState("");
 
-  const username = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
 
   const handleSignin = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    const user = users.find(
-      (user) => user.username === username.current?.value
-    );
+    if (usernameRef.current === null || passwordRef.current === null) {
+      throw new Error("bad refs");
+    }
+
+    const username = usernameRef.current.value;
+    const password = passwordRef.current.value;
+
+    const user = users.find((user) => user.username === username);
 
     if (!user) {
       // TODO
@@ -23,13 +31,21 @@ export const Signin = () => {
       return;
     }
 
-    if (!(user.password === password.current?.value)) {
+    if (!(user.password === password)) {
       // TODO
       setErrMessage("password doesn't match");
       return;
     }
 
-    localStorage.setItem("logged", "");
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify({
+        username,
+        posts: user.posts,
+      })
+    );
+
+    return navigate("/my-posts");
   };
 
   return (
@@ -45,7 +61,7 @@ export const Signin = () => {
           required
           type="text"
           id="username"
-          ref={username}
+          ref={usernameRef}
         />
       </div>
       <div>
@@ -54,7 +70,7 @@ export const Signin = () => {
           required
           type="password"
           id="password"
-          ref={password}
+          ref={passwordRef}
         />
       </div>
       {errMessage && <p className={styles.error}>{errMessage}</p>}
