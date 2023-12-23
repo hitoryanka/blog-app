@@ -8,7 +8,6 @@ import { ModalForm } from "../../Modal/ModalForm/ModalForm";
 
 interface PostProps {
   post: IPost;
-  // TODO address author being current user
   author: IUser | IAuthUser | undefined;
 }
 
@@ -46,7 +45,6 @@ export const Post = ({ post, author }: PostProps) => {
     <>
       {isModalOpen &&
         createPortal(
-          // TODO change modal for My Post
           !onMyPostsPage ? (
             <Modal
               post={post}
@@ -55,7 +53,11 @@ export const Post = ({ post, author }: PostProps) => {
               setIsModalOpen={setIsModalOpen}
             />
           ) : (
-            <ModalForm />
+            <ModalForm
+              post={post}
+              dialog={dialog}
+              setIsModal={setIsModalOpen}
+            />
           ),
           dialog
         )}

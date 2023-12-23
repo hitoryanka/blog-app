@@ -1,39 +1,64 @@
+import { SyntheticEvent, useState } from "react";
 import { IMyPost } from "../../../utils/types";
 import styles from "./modalForm.module.css";
+import { useDispatch } from "react-redux";
+import { addPost } from "../../../features/myPosts";
 
 interface ModalProps {
-  post: IMyPost;
+  post?: IMyPost;
   dialog: HTMLDialogElement;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ModalForm = ({ post, dialog, setIsModalOpen }: ModalProps) => {
-  const { id, title, body } = post;
+export const ModalForm = ({ post, dialog, setIsModal }: ModalProps) => {
+  const [title, setTitle] = useState(post?.title ?? "");
+  const [body, setBody] = useState(post?.body ?? "");
+
+  const handleTitle = ({ target }: SyntheticEvent) => {
+    setTitle((target as HTMLInputElement).value);
+  };
+  const handleBody = ({ target }: SyntheticEvent) => {
+    setBody((target as HTMLTextAreaElement).value);
+  };
+
+  const dispatch = useDispatch();
 
   const closeModal = () => {
+    // TODO create new task if no post provided
+    dispatch(addPost({ title, body }));
+
     dialog.close();
-    setIsModalOpen(false);
+    setIsModal(false);
   };
 
   return (
-    <div
-      className={styles.modal}
-      id={`modal-${id}`}
-    >
+    <form className={styles.modal}>
       <header>
         <img
-          src={`/users/photos/0.png`}
+          src={`/users/photos/5.png`}
           alt="avatar"
         />
-        <h2>{title}</h2>
+        <input
+          className={styles.title}
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={handleTitle}
+        />
       </header>
       <main>
-        <p>{body}</p>
+        <textarea
+          className={styles.body}
+          placeholder="Start typing..."
+          value={body}
+          onChange={handleBody}
+        />
+
         <footer>
           <small>by: You</small>
-          <button onClick={closeModal}>Close</button>
+          <button onClick={closeModal}>Update and close</button>
         </footer>
       </main>
-    </div>
+    </form>
   );
 };
