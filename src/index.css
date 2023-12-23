@@ -23,6 +23,7 @@ button {
   width: 85%;
 
   display: flex;
+  align-items: center;
   gap: 50px;
   flex-direction: column;
 }

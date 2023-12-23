@@ -23,7 +23,12 @@ export const AuthButtons = () => {
   if (isAuthorized()) {
     return (
       <div className={styles.auth}>
-        <button onClick={handleLogout}>Log out</button>
+        <a
+          href="./"
+          onClick={handleLogout}
+        >
+          Log out
+        </a>
       </div>
     );
   }

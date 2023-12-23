@@ -4,7 +4,6 @@ import styles from "./nav.module.css";
 export const Nav = () => {
   // TODO define during page based on URL and set active styles
 
-  console.log(isAuthorized());
   return (
     <nav className={styles.nav}>
       <ul>
