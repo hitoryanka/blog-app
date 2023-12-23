@@ -1,16 +1,14 @@
-import { IPost, IUser } from "../../utils/types";
-import styles from "./modal.module.css";
+import { IMyPost } from "../../../utils/types";
+import styles from "./modalForm.module.css";
 
 interface ModalProps {
-  post: IPost;
-  author: IUser | undefined;
+  post: IMyPost;
   dialog: HTMLDialogElement;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Modal = (props: ModalProps) => {
-  const { post, author, dialog, setIsModalOpen } = props;
-  const { title, body, id } = post;
+export const ModalForm = ({ post, dialog, setIsModalOpen }: ModalProps) => {
+  const { id, title, body } = post;
 
   const closeModal = () => {
     dialog.close();
@@ -24,7 +22,7 @@ export const Modal = (props: ModalProps) => {
     >
       <header>
         <img
-          src={`/users/photos/${author?.id}.png`}
+          src={`/users/photos/0.png`}
           alt="avatar"
         />
         <h2>{title}</h2>
@@ -32,9 +30,7 @@ export const Modal = (props: ModalProps) => {
       <main>
         <p>{body}</p>
         <footer>
-          <small>
-            by: {author ? `${author.name} | ${author.username}` : "loading..."}
-          </small>
+          <small>by: You</small>
           <button onClick={closeModal}>Close</button>
         </footer>
       </main>

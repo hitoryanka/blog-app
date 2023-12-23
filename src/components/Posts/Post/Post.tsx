@@ -1,20 +1,36 @@
 import { useRef, useState } from "react";
-import { IPost, IUser } from "../../../utils/types";
+import { IAuthUser, IPost, IUser } from "../../../utils/types";
 import { Modal } from "../../Modal/Modal";
 import styles from "./post.module.css";
 import { createPortal } from "react-dom";
+import { useLocation } from "react-router";
+import { ModalForm } from "../../Modal/ModalForm/ModalForm";
 
 interface PostProps {
   post: IPost;
-  author: IUser | undefined;
+  // TODO address author being current user
+  author: IUser | IAuthUser | undefined;
 }
 
 export const Post = ({ post, author }: PostProps) => {
   const { title, body } = post;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const ref = useRef<HTMLDialogElement>(document.querySelector("#post-modal"));
+
+  const location = useLocation();
+  const onMyPostsPage = location.pathname.includes("my-posts");
+  let avatarSrc;
+  let footerText;
+
+  if (onMyPostsPage) {
+    avatarSrc = "/users/photos/0.png";
+    footerText = author?.username;
+  } else {
+    avatarSrc = `/users/photos/${(author as IUser | undefined)?.id}.png`;
+    footerText = author
+      ? `${(author as IUser).name} | ${author.username}`
+      : "loading...";
+  }
 
   if (!ref.current) {
     throw new Error("ref doesn't link to an element");
@@ -30,12 +46,17 @@ export const Post = ({ post, author }: PostProps) => {
     <>
       {isModalOpen &&
         createPortal(
-          <Modal
-            post={post}
-            author={author}
-            dialog={dialog}
-            setIsModalOpen={setIsModalOpen}
-          />,
+          // TODO change modal for My Post
+          !onMyPostsPage ? (
+            <Modal
+              post={post}
+              author={author as IUser}
+              dialog={dialog}
+              setIsModalOpen={setIsModalOpen}
+            />
+          ) : (
+            <ModalForm />
+          ),
           dialog
         )}
       <article
@@ -44,7 +65,7 @@ export const Post = ({ post, author }: PostProps) => {
       >
         <header>
           <img
-            src={`/users/photos/${author?.id}.png`}
+            src={avatarSrc}
             alt="avatar"
           />
           <h2>{title}</h2>
@@ -52,10 +73,7 @@ export const Post = ({ post, author }: PostProps) => {
         <main>
           <p>{body}</p>
           <footer>
-            <small>
-              by:{" "}
-              {author ? `${author.name} | ${author.username}` : "loading..."}
-            </small>
+            <small>by: {footerText}</small>
           </footer>
         </main>
       </article>
