@@ -6,9 +6,6 @@ import { Signin } from "./components/Auth/signin/Signin";
 import { Signup } from "./components/Auth/signup/Signup";
 import { MyPosts } from "./components/MyPosts/MyPosts";
 
-// TODO Authentication (https://redux-toolkit.js.org/rtk-query/usage/examples#authentication)
-// TODO use RTK Query instead of Context API
-// TODO use Context API to provide theme
 // TODO add styles for loading process (*and failed queries) (RTK Query)
 const router = createBrowserRouter([
   {
@@ -71,10 +68,6 @@ function App() {
   return (
     <SearchContext.Provider value={contextData}>
       <RouterProvider router={router} />
-      {/* <Header />
-      <main className={styles.main}>
-        <RouterProvider router={router} />
-      </main> */}
     </SearchContext.Provider>
   );
 }

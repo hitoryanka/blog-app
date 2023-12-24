@@ -33,7 +33,7 @@
       border-radius: 50%;
     }
 
-    & > h2 {
+    & > .title {
       /* BUG text-overflow doesn't work */
       width: 100%;
       /* overflow: hidden; */

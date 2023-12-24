@@ -7,7 +7,7 @@ import { useLocation } from "react-router";
 import { ModalForm } from "../../Modal/ModalForm/ModalForm";
 
 interface PostProps {
-  post: IPost;
+  post: IPost | Omit<IPost, "userId">;
   author: IUser | IAuthUser | undefined;
 }
 
@@ -22,7 +22,7 @@ export const Post = ({ post, author }: PostProps) => {
   let footerText;
 
   if (onMyPostsPage) {
-    avatarSrc = "/users/photos/0.png";
+    avatarSrc = "/users/photos/5.png";
     footerText = author?.username;
   } else {
     avatarSrc = `/users/photos/${(author as IUser | undefined)?.id}.png`;
@@ -47,7 +47,7 @@ export const Post = ({ post, author }: PostProps) => {
         createPortal(
           !onMyPostsPage ? (
             <Modal
-              post={post}
+              post={post as IPost}
               author={author as IUser}
               dialog={dialog}
               setIsModalOpen={setIsModalOpen}

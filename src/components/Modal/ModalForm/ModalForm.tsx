@@ -2,7 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import { IMyPost } from "../../../utils/types";
 import styles from "./modalForm.module.css";
 import { useDispatch } from "react-redux";
-import { addPost } from "../../../features/myPosts";
+import { addPost, updatePost } from "../../../features/myPosts";
 
 interface ModalProps {
   post?: IMyPost;
@@ -25,7 +25,11 @@ export const ModalForm = ({ post, dialog, setIsModal }: ModalProps) => {
 
   const closeModal = () => {
     // TODO create new task if no post provided
-    dispatch(addPost({ title, body }));
+    if (post) {
+      dispatch(updatePost({ id: post.id, title, body }));
+    } else {
+      dispatch(addPost({ title, body }));
+    }
 
     dialog.close();
     setIsModal(false);

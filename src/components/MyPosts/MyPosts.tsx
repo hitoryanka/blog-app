@@ -1,15 +1,28 @@
-import { useRef, useState } from "react";
-import { IAuthUser } from "../../utils/types";
+import { useMemo, useRef, useState } from "react";
+import { IAuthUser, IMyPost } from "../../utils/types";
 import { createPortal } from "react-dom";
 import { ModalForm } from "../Modal/ModalForm/ModalForm";
+import { Post } from "../Posts/Post/Post";
+import styles from "./myposts.module.css";
+import { useSelector } from "react-redux";
+
+// TODO update posts
+// BUG updating post creates a new one
 
 export const MyPosts = () => {
-  const userString = localStorage.getItem("currentUser");
-  const user: IAuthUser | null = userString ? JSON.parse(userString) : null;
-  if (user === null) {
-    throw new Error("user isn't logged in");
-  }
+  const user = useMemo(() => {
+    const userString = localStorage.getItem("currentUser");
+    const user: IAuthUser | null = userString ? JSON.parse(userString) : null;
+    if (user === null) {
+      throw new Error("user isn't logged in");
+    }
 
+    return user;
+  }, []);
+
+  const posts = useSelector(({ myPosts }) => {
+    return myPosts.posts;
+  }) as IMyPost[];
   const [isModal, setIsModal] = useState(false);
 
   const dialogRef = useRef<HTMLDialogElement>(
@@ -40,13 +53,17 @@ export const MyPosts = () => {
         )}
       <div>
         <h2>MyPosts</h2>
-        {!user.posts.length && (
+        {!posts.length && (
           <h3>Looks like you haven't written any posts yet!</h3>
         )}
         <button onClick={handleModal}>create Post</button>
-        <ul>
-          {user.posts.map((post) => (
-            <li>{post.title}</li>
+        <ul className={styles["my-posts"]}>
+          {posts.map((post) => (
+            <Post
+              key={post.id}
+              post={post}
+              author={user}
+            />
           ))}
         </ul>
       </div>

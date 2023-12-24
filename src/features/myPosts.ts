@@ -27,7 +27,18 @@ export const myPostsSlice = createSlice({
 
       localStorage.setItem("currentUser", JSON.stringify(state));
     },
+
+    updatePost(state, { payload }) {
+      const postIndex = state.posts.findIndex((post) => post.id === payload.id);
+      state.posts[postIndex] = {
+        id: payload.id,
+        body: payload.body,
+        title: payload.title,
+      };
+
+      localStorage.setItem("currentUser", JSON.stringify(state));
+    },
   },
 });
 
-export const { addPost } = myPostsSlice.actions;
+export const { addPost, updatePost, removePost } = myPostsSlice.actions;
