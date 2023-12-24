@@ -24,7 +24,6 @@ export const ModalForm = ({ post, dialog, setIsModal }: ModalProps) => {
   const dispatch = useDispatch();
 
   const closeModal = () => {
-    // TODO create new task if no post provided
     if (post) {
       dispatch(updatePost({ id: post.id, title, body }));
     } else {

@@ -64,8 +64,25 @@
     flex-direction: column;
     justify-content: space-between;
 
+    & > p {
+      overflow-wrap: break-word;
+    }
+
     & > footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       color: #a3a3a3;
+
+      & > button {
+        font-size: 26px;
+        color: #e58c8a;
+
+        & > img {
+          width: 25px;
+          height: 25px;
+        }
+      }
     }
   }
 }

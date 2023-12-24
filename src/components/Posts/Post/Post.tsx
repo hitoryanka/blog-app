@@ -76,6 +76,16 @@ export const Post = ({ post, author }: PostProps) => {
           <p>{body}</p>
           <footer>
             <small>by: {footerText}</small>
+            {onMyPostsPage ? (
+              <button>X</button>
+            ) : (
+              <button className={styles.favorite}>
+                <img
+                  src="./favorite.png"
+                  alt="add to favorite"
+                />
+              </button>
+            )}
           </footer>
         </main>
       </article>

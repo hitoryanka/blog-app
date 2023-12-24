@@ -9,6 +9,7 @@
   border-radius: 25px;
 
   & > * {
+    width: inherit;
     padding: 10px;
     box-sizing: border-box;
   }
@@ -65,5 +66,25 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+.body,
+.title {
+  height: 100%;
+  background: none;
+  border: none;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.body::placeholder {
+    color: #817f7f;
+  }
+
+  &.title::placeholder {
+    color: #c29393;
   }
 }
