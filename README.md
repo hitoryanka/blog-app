@@ -39,11 +39,11 @@
 
 **React**
 
-- [x]  **Пишем функциональные компоненты c хуками** в приоритете над классовыми.
+- [x]  **Пишем функциональные компоненты c хуками** в приоритете над классовыми. [Components](https://github.com/hitoryanka/blog-app/tree/main/src/components)
 - [ ]  Есть разделение на **умные и глупые компоненты**
-- [x]  Есть **рендеринг списков**
-- [x]  Реализована хотя бы одна **форма**
-- [x]  Есть применение **Контекст API**
+- [x]  Есть **рендеринг списков** [Posts](https://github.com/hitoryanka/blog-app/blob/main/src/components/Posts/Posts.tsx)
+- [x]  Реализована хотя бы одна **форма** [Auth](https://github.com/hitoryanka/blog-app/blob/main/src/components/Auth/signin/Signin.tsx)
+- [x]  Есть применение **Контекст API** [createContext](https://github.com/hitoryanka/blog-app/blob/main/src/App.tsx) [useContext](https://github.com/hitoryanka/blog-app/blob/main/src/components/Header/Search/Search.tsx)
 - [ ]  Есть применение **предохранителя**
 - [ ]  Есть хотя бы один **кастомный хук**
 - [ ]  Хотя бы несколько компонентов используют **PropTypes**
@@ -52,17 +52,17 @@
 
 **Redux**
 
-- [x]  Используем **Modern Redux with Redux Toolkit**
-- [x]  Используем **слайсы**
+- [x]  Используем **Modern Redux with Redux Toolkit** [store](https://github.com/hitoryanka/blog-app/blob/main/src/store.ts)
+- [x]  Используем **слайсы** [usersSlice](https://github.com/hitoryanka/blog-app/blob/main/src/features/users.ts)
 - [ ]  Есть хотя бы одна **кастомная мидлвара**
-- [x]  Используется **RTK Query**
+- [x]  Используется **RTK Query** [postsApi](https://github.com/hitoryanka/blog-app/blob/main/src/features/posts.ts)
 - [ ]  Используется **Transforming Responses**
 
 
 
 <h3>Необязательные</h3>
 
-- [x]  Использование **TypeScript** (https://ru.reactjs.org/docs/static-type-checking.html#typescript)
+- [x]  Использование **TypeScript** [types](https://github.com/hitoryanka/blog-app/blob/main/src/utils/types.ts)
 - [ ]  Подключен **storybook** и созданы два, три сториса с knobs, которые показывают разные состояния компонента
 - [ ]  Использование **Firebase** для учетных записей пользователей и их Избранного и Истории поиска. Тогда пункт из обязательных требований про использования LocalStorage может отпадать за ненадобностью, раз вы используете Firebase.
     - Можно для этого пункта взять не Firebase, а Свой простой самописный сервер на ноде + mongoDB, если вы больше заинтересованы потыкать монго, а не фаербейз. Насколько мне говорили ребята, mongoDB сервера не доступны из России. Но вы можете поднять себе БД локально.
