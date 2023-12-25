@@ -8,7 +8,6 @@ import { addUser, updateCurrentUser } from "../../../features/users";
 
 export const Signup = () => {
   const [errMessage, setErrMessage] = useState("");
-  // TODO rewrite to RTK DONE
   const users = useSelector<IState, IAuthUser[]>((state) => state.users.users);
   const dispatch = useDispatch();
 
@@ -50,7 +49,6 @@ export const Signup = () => {
       favorites: [],
     };
 
-    // TODO rewrite to RTK DONE
     dispatch(addUser(newUser));
     dispatch(updateCurrentUser(newUser));
 

@@ -1,5 +1,3 @@
-// TODO create this slice and rename myPosts to usersPosts
-
 import { createSlice } from "@reduxjs/toolkit";
 import { ILocalStorage } from "../utils/types";
 import { getUsers } from "../utils/lib";

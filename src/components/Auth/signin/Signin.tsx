@@ -7,7 +7,6 @@ import { IState } from "../../../store";
 import { updateCurrentUser } from "../../../features/users";
 
 export const Signin = () => {
-  // TODO rewrite to RTK
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const users = useSelector<IState, IAuthUser[]>((state) => state.users.users);
@@ -29,13 +28,11 @@ export const Signin = () => {
     const user = users.find((user) => user.username === username);
 
     if (!user) {
-      // TODO
       setErrMessage("user with this username doesn't exist");
       return;
     }
 
     if (!(user.password === password)) {
-      // TODO
       setErrMessage("password doesn't match");
       return;
     }
@@ -46,7 +43,6 @@ export const Signin = () => {
       posts: user.posts,
       favorites: user.favorites,
     };
-    // TODO rewrite to RTK DONE
 
     dispatch(updateCurrentUser(currentUser));
     return navigate("/");

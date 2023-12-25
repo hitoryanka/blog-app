@@ -8,11 +8,7 @@ import { useSelector } from "react-redux";
 import { IState } from "../../store";
 import { useNavigate } from "react-router";
 
-// TODO update posts
-// BUG updating post creates a new one
-
 export const MyPosts = () => {
-  // TODO rewrite to RTK
   const user = useSelector<IState, IAuthUser | null>(
     (state) => state.users.currentUser
   );

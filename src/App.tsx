@@ -7,16 +7,6 @@ import { Signup } from "./components/Auth/signup/Signup";
 import { MyPosts } from "./components/MyPosts/MyPosts";
 import { Users } from "./components/Users/Users";
 
-// TODO add styles for loading process (*and failed queries) (RTK Query)
-
-// TODO add slice for users
-// TODO !!! manipulate localStorage only in redux
-//  1 - create logic in redux
-//  2 - pluck out every localStorage access in app and change it with written logic
-
-// TODO add slice for search history
-// TODO add useDebounce for search
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -71,7 +61,6 @@ const router = createBrowserRouter([
     ),
   },
 ]);
-// TODO update posts in RTK when logged in / logged out
 
 export const SearchContext = createContext<
   [string, React.Dispatch<SetStateAction<string>>]

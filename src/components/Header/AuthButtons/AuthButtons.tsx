@@ -12,13 +12,10 @@ export const AuthButtons = () => {
   const [isAuthorized, setIsAuthorized] = useState(currentUser !== null);
   const dispatch = useDispatch();
   const handleLogout = () => {
-    // TODO rewrite to RTK DONE
-
     if (currentUser === null) {
       throw new Error("no current user");
     }
 
-    // TODO rewrite to RTK DONE
     dispatch(updateCurrentUser(null));
     setIsAuthorized(false);
   };

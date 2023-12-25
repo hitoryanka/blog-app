@@ -9,10 +9,7 @@ import { useSelector } from "react-redux";
 import { IAuthUser } from "../../utils/types";
 import { IState } from "../../store";
 
-// TODO add pagination for posts
 export const Posts = () => {
-  // TODO use isFetching to grey out posts
-
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const currentUser = useSelector<IState, IAuthUser | null>(
@@ -24,16 +21,11 @@ export const Posts = () => {
 
   const [searchValue] = useContext(SearchContext);
 
-  const {
-    data: posts,
-    isLoading: isPostsLoading,
-    // isError: postsError,
-  } = useGetPostsQuery([userId, searchValue]);
-  const {
-    data: users,
-    // isLoading: isUsersLoading,
-    // isError: usersError,
-  } = useGetUsersQuery();
+  const { data: posts, isLoading: isPostsLoading } = useGetPostsQuery([
+    userId,
+    searchValue,
+  ]);
+  const { data: users } = useGetUsersQuery();
 
   if (isPostsLoading) {
     return <h2>posts are loading...</h2>;

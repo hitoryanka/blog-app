@@ -11,7 +11,6 @@ export function isUserPage() {
 }
 
 export function isAuthorized() {
-  // TODO rewrite to RTK - make it redundant
   return localStorage.getItem("currentUser") !== null;
 }
 
