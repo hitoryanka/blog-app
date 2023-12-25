@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+<h1>Blog app</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Предметная область: Блог
+- Использованное API: https://jsonplaceholder.typicode.com
+<h2>Основной функционал</h2>
 
-Currently, two official plugins are available:
+- Регистрация пользователей
+- избранные посты: добавление, удаление и отображение
+- Поиск постов по их заголовку и контенту
+- Поиск пользовалей по их username
+- Создание постов
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h2>Реализация требований</h2>
 
-## Expanding the ESLint configuration
+<h3>Требования к функциональности</h3>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+- [x] Кнопки авторизации
+- [x] Показываем избранное после авторизации
+- [x] Кнопка выхода из учетной записи
+- [x] Кнопка добавления и удаления любимого поста
+- [x] Панель поиска
+- [x] Карточка с единицей информации
+- [x] страница авторизации
+- [x] страница избранного
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+<h3>React</h3>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- [x] Функциональные компоненты
+- [x] рендеринг списков
+- [x] реализация формы
+- [x] Применение Context API
+
+<h3>Redux</h3>
+
+- [x] использование RTK
+- [x] использование слайсов
+- [x] использование RTK Query
+
+<h3>Необязательные</h3>
+
+- [x] использование TS
