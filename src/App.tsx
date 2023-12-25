@@ -5,6 +5,7 @@ import { createContext, SetStateAction, useMemo, useState } from "react";
 import { Signin } from "./components/Auth/signin/Signin";
 import { Signup } from "./components/Auth/signup/Signup";
 import { MyPosts } from "./components/MyPosts/MyPosts";
+import { Users } from "./components/Users/Users";
 
 // TODO add styles for loading process (*and failed queries) (RTK Query)
 
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <Posts />
+        <Users />
       </>
     ),
   },
