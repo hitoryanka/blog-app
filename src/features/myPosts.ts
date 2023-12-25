@@ -9,6 +9,15 @@ export const myPostsSlice = createSlice({
   name: "myPosts",
   initialState,
   reducers: {
+    resetUser(state, { payload }) {
+      state = {
+        username: payload.username,
+        password: payload.password,
+        posts: payload.posts,
+        favorites: payload.favorites,
+      };
+    },
+
     addPost(state, { payload }) {
       const newPost = {
         id: Date.now().toString(),
@@ -19,12 +28,12 @@ export const myPostsSlice = createSlice({
       state.posts.push(newPost);
 
       // TODO maybe move it to middleware
+      // TODO rewrite to RTK as extra reducer
       localStorage.setItem("currentUser", JSON.stringify(state));
     },
 
     removePost(state, { payload }) {
-      state.posts.filter(({ id }) => id !== payload.id);
-
+      state.posts = state.posts.filter(({ id }) => id !== payload);
       localStorage.setItem("currentUser", JSON.stringify(state));
     },
 
@@ -38,7 +47,26 @@ export const myPostsSlice = createSlice({
 
       localStorage.setItem("currentUser", JSON.stringify(state));
     },
+
+    addToFavorites(state, { payload }) {
+      state.favorites.push(payload);
+
+      localStorage.setItem("currentUser", JSON.stringify(state));
+    },
+
+    removeFromFavorites(state, { payload }) {
+      state.favorites = state.favorites.filter(payload);
+
+      localStorage.setItem("currentUser", JSON.stringify(state));
+    },
   },
 });
 
-export const { addPost, updatePost, removePost } = myPostsSlice.actions;
+export const {
+  resetUser,
+  addPost,
+  updatePost,
+  removePost,
+  addToFavorites,
+  removeFromFavorites,
+} = myPostsSlice.actions;

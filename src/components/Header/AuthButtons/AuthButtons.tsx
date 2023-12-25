@@ -4,18 +4,19 @@ import styles from "./authButtons.module.css";
 
 export const AuthButtons = () => {
   const handleLogout = () => {
+    // TODO rewrite to RTK
     const currentUser = localStorage.getItem("currentUser");
     if (currentUser === null) {
       throw new Error("no current user");
     }
     const currentUserParsed: IAuthUser = JSON.parse(currentUser);
-
+    // TODO rewrite to RTK
     const users = localStorage.getItem("users");
 
     const usersParsed: IAuthUser[] = users ? JSON.parse(users) : [];
     usersParsed.filter((user) => user.username === currentUserParsed.username);
     usersParsed.push(currentUserParsed);
-
+    // TODO rewrite to RTK
     localStorage.setItem("users", JSON.stringify(usersParsed));
     localStorage.removeItem("currentUser");
   };

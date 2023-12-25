@@ -1,10 +1,17 @@
-import { useRef, useState } from "react";
+import { SyntheticEvent, useRef, useState } from "react";
 import { IAuthUser, IPost, IUser } from "../../../utils/types";
 import { Modal } from "../../Modal/Modal";
 import styles from "./post.module.css";
 import { createPortal } from "react-dom";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { ModalForm } from "../../Modal/ModalForm/ModalForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToFavorites,
+  removeFromFavorites,
+  removePost,
+} from "../../../features/myPosts";
+import { IState } from "../../../store";
 
 interface PostProps {
   post: IPost | Omit<IPost, "userId">;
@@ -14,6 +21,13 @@ interface PostProps {
 export const Post = ({ post, author }: PostProps) => {
   const { title, body } = post;
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const currentUser = useSelector<IState, IAuthUser>((state) => state.myPosts);
+
+  console.log(currentUser);
+  const [isFavorite, setIsFavorite] = useState<boolean>(
+    !!currentUser.favorites.find((id) => id === post.id)
+  );
   const ref = useRef<HTMLDialogElement>(document.querySelector("#post-modal"));
 
   const location = useLocation();
@@ -39,6 +53,29 @@ export const Post = ({ post, author }: PostProps) => {
   const openModal = () => {
     setIsModalOpen(true);
     dialog.showModal();
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleDelete = (e: SyntheticEvent) => {
+    e.stopPropagation();
+    dispatch(removePost(post.id));
+  };
+
+  const handleFavorite = (e: SyntheticEvent) => {
+    e.stopPropagation();
+
+    if (currentUser === null) {
+      navigate("./signin");
+      return;
+    }
+
+    isFavorite
+      ? dispatch(addToFavorites(post.id))
+      : dispatch(removeFromFavorites(post.id));
+
+    setIsFavorite((prev) => !prev);
   };
 
   return (
@@ -77,11 +114,14 @@ export const Post = ({ post, author }: PostProps) => {
           <footer>
             <small>by: {footerText}</small>
             {onMyPostsPage ? (
-              <button>X</button>
+              <button onClick={handleDelete}>X</button>
             ) : (
-              <button className={styles.favorite}>
+              <button
+                className={styles.favorite}
+                onClick={handleFavorite}
+              >
                 <img
-                  src="./favorite.png"
+                  src={isFavorite ? "./favorite-active.png" : "./favorite.png"}
                   alt="add to favorite"
                 />
               </button>

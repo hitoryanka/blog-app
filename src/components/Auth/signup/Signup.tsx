@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 export const Signup = () => {
   const [errMessage, setErrMessage] = useState("");
+  // TODO rewrite to RTK
   const users: IAuthUser[] = JSON.parse(localStorage.getItem("users") ?? "[]");
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -38,20 +39,17 @@ export const Signup = () => {
       return;
     }
 
-    users.push({
+    const newUser = {
       username,
       password,
       posts: [],
-    });
+      favorites: [],
+    };
 
+    users.push(newUser);
+    // TODO rewrite to RTK
     localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify({
-        username,
-        posts: [],
-      })
-    );
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
 
     return navigate("/my-posts");
   };

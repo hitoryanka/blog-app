@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 // BUG updating post creates a new one
 
 export const MyPosts = () => {
+  // TODO rewrite to RTK
   const user = useMemo(() => {
     const userString = localStorage.getItem("currentUser");
     const user: IAuthUser | null = userString ? JSON.parse(userString) : null;

@@ -11,8 +11,6 @@ export const Search = () => {
 
   // TODO use ref to update URL search param
 
-  // default list, to update search
-
   return (
     <div className={styles.search}>
       <input

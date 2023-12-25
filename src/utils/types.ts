@@ -18,6 +18,7 @@ export interface IAuthUser {
   username: string;
   password: string;
   posts: IMyPost[];
+  favorites: string[];
 }
 
 export type IMyPost = Omit<IPost, "userId">;

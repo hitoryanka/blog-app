@@ -59,7 +59,7 @@ export const ModalForm = ({ post, dialog, setIsModal }: ModalProps) => {
 
         <footer>
           <small>by: You</small>
-          <button onClick={closeModal}>Update and close</button>
+          <button onClick={closeModal}>Submit</button>
         </footer>
       </main>
     </form>

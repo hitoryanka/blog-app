@@ -2,8 +2,11 @@ import { SyntheticEvent, useRef, useState } from "react";
 import { IAuthUser } from "../../../utils/types";
 import styles from "./signin.module.css";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { resetUser } from "../../../features/myPosts";
 
 export const Signin = () => {
+  // TODO rewrite to RTK
   const users: IAuthUser[] = JSON.parse(localStorage.getItem("users") ?? "[]");
 
   const [errMessage, setErrMessage] = useState("");
@@ -12,6 +15,7 @@ export const Signin = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSignin = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -37,13 +41,15 @@ export const Signin = () => {
       return;
     }
 
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify({
-        username,
-        posts: user.posts,
-      })
-    );
+    const currentUser = {
+      username,
+      posts: user.posts,
+      favorites: user.favorites,
+    };
+
+    dispatch(resetUser(currentUser));
+    // TODO rewrite to RTK
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
     return navigate("/my-posts");
   };
