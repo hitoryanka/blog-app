@@ -1,19 +1,12 @@
-.post {
-  cursor: pointer;
-  height: 364px;
-  width: 300px;
+.modal {
+  height: 350px;
+  width: 500px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
   border-radius: 25px;
-
-  transition: all 250ms;
-
-  &:hover {
-    scale: 1.1;
-  }
 
   & > * {
     width: inherit;
@@ -24,17 +17,14 @@
   color: black;
 
   & > header {
-    height: 68px;
+    /* height: 68px; */
     display: flex;
     gap: 10px;
     text-overflow: ellipsis;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
 
-    background: linear-gradient(
-      90deg,
-      rgba(69, 75, 115, 0.35) 0%,
-      rgba(77, 168, 147, 0.35) 100%
-    );
+    background-color: rgba(0, 0, 0, 0.1);
+    /* background: brown; */
     width: 100%;
     border-radius: 25px 25px 0px 0px;
 
@@ -44,10 +34,10 @@
       border-radius: 50%;
     }
 
-    & > h2 {
+    & > .title {
       /* BUG text-overflow doesn't work */
       width: 100%;
-      overflow: hidden;
+      /* overflow: hidden; */
 
       font-size: 18px;
       font-weight: 600;
@@ -64,25 +54,37 @@
     flex-direction: column;
     justify-content: space-between;
 
-    & > p {
-      overflow-wrap: break-word;
-    }
-
     & > footer {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+
       color: #a3a3a3;
 
       & > button {
-        font-size: 26px;
-        color: #e58c8a;
+        all: unset;
 
-        & > img {
-          width: 25px;
-          height: 25px;
-        }
+        cursor: pointer;
       }
     }
+  }
+}
+
+.body,
+.title {
+  height: 100%;
+  background: none;
+  border: none;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.body::placeholder {
+    color: #817f7f;
+  }
+
+  &.title::placeholder {
+    color: #c29393;
   }
 }

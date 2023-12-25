@@ -1,26 +1,64 @@
-import styles from "./App.module.css";
 import { Posts } from "./components/Posts/Posts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Users } from "./components/Users/Users";
 import { Header } from "./components/Header/Header";
 import { createContext, SetStateAction, useMemo, useState } from "react";
+import { Signin } from "./components/Auth/signin/Signin";
+import { Signup } from "./components/Auth/signup/Signup";
+import { MyPosts } from "./components/MyPosts/MyPosts";
+import { Users } from "./components/Users/Users";
 
-// TODO Authentication (https://redux-toolkit.js.org/rtk-query/usage/examples#authentication)
-// TODO use RTK Query instead of Context API
-// TODO use Context API to provide theme
-// TODO add styles for loading process (*and failed queries) (RTK Query)
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Posts />,
+    element: (
+      <>
+        <Header />
+        <Posts />
+      </>
+    ),
   },
   {
     path: "/users/:userId",
-    element: <Posts />,
+    element: (
+      <>
+        <Header />
+        <Posts />
+      </>
+    ),
   },
   {
     path: "/users",
-    element: <Users />,
+    element: (
+      <>
+        <Header />
+        <Users />
+      </>
+    ),
+  },
+  {
+    path: "/favorites",
+    element: (
+      <>
+        <Header />
+        <Posts />
+      </>
+    ),
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/my-posts",
+    element: (
+      <>
+        <Header /> <MyPosts />
+      </>
+    ),
   },
 ]);
 
@@ -38,10 +76,7 @@ function App() {
 
   return (
     <SearchContext.Provider value={contextData}>
-      <Header />
-      <main className={styles.main}>
-        <RouterProvider router={router} />
-      </main>
+      <RouterProvider router={router} />
     </SearchContext.Provider>
   );
 }

@@ -1,9 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { postsApi } from "./features/posts";
+import { IAuthUser, ILocalStorage } from "./utils/types";
+import { usersSlice } from "./features/users";
+
+export interface IState {
+  myPosts: IAuthUser;
+  users: ILocalStorage;
+}
 
 export const store = configureStore({
   reducer: {
     [postsApi.reducerPath]: postsApi.reducer,
+    users: usersSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(postsApi.middleware),

@@ -9,10 +9,6 @@ export const Search = () => {
 
   const [searchValue, setSearchValue] = useContext(SearchContext);
 
-  // TODO use ref to update URL search param
-
-  // default list, to update search
-
   return (
     <div className={styles.search}>
       <input

@@ -5,9 +5,14 @@
     display: flex;
     justify-content: flex-start;
     gap: 40px;
+    font-size: 14px;
 
     & > li {
       all: unset;
+
+      &.unauthorized {
+        display: none;
+      }
 
       & > a:hover {
         color: #e58c8a;

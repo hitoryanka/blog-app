@@ -6,12 +6,11 @@ interface ModalProps {
   author: IUser | undefined;
   dialog: HTMLDialogElement;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  // handleModal: (event: SyntheticEvent) => void;
 }
 
 export const Modal = (props: ModalProps) => {
   const { post, author, dialog, setIsModalOpen } = props;
-  const { title, body, id } = post;
+  const { title, body } = post;
 
   const closeModal = () => {
     dialog.close();
@@ -19,10 +18,7 @@ export const Modal = (props: ModalProps) => {
   };
 
   return (
-    <div
-      className={styles.modal}
-      id={`modal-${id}`}
-    >
+    <div className={styles.modal}>
       <header>
         <img
           src={`/users/photos/${author?.id}.png`}

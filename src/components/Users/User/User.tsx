@@ -9,7 +9,6 @@ interface UserProps {
 export const User = ({ user }: UserProps) => {
   const { id, username, name, email, phone, website } = user;
 
-  // use context for that
   const { data: postsWritten } = useGetUsersPostCntQuery(id);
 
   return (

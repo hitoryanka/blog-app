@@ -1,6 +1,7 @@
 .auth {
   display: flex;
   gap: 20px;
+  font-size: 14px;
 
   & button:hover {
     color: #e58c8a;
