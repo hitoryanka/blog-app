@@ -9,15 +9,6 @@ export const myPostsSlice = createSlice({
   name: "myPosts",
   initialState,
   reducers: {
-    resetUser(state, { payload }) {
-      state = {
-        username: payload.username,
-        password: payload.password,
-        posts: payload.posts,
-        favorites: payload.favorites,
-      };
-    },
-
     addPost(state, { payload }) {
       const newPost = {
         id: Date.now().toString(),
@@ -50,20 +41,19 @@ export const myPostsSlice = createSlice({
 
     addToFavorites(state, { payload }) {
       state.favorites.push(payload);
-
+      console.log("added");
       localStorage.setItem("currentUser", JSON.stringify(state));
     },
 
     removeFromFavorites(state, { payload }) {
-      state.favorites = state.favorites.filter(payload);
-
+      state.favorites = state.favorites.filter((id) => id !== payload);
+      console.log(JSON.parse(JSON.stringify(state)));
       localStorage.setItem("currentUser", JSON.stringify(state));
     },
   },
 });
 
 export const {
-  resetUser,
   addPost,
   updatePost,
   removePost,

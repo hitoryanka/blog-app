@@ -1,27 +1,29 @@
-import { isAuthorized } from "../../../utils/lib";
+import { useDispatch, useSelector } from "react-redux";
 import { IAuthUser } from "../../../utils/types";
 import styles from "./authButtons.module.css";
+import { IState } from "../../../store";
+import { updateCurrentUser } from "../../../features/users";
+import { useState } from "react";
 
 export const AuthButtons = () => {
+  const currentUser = useSelector<IState, IAuthUser | null>(
+    (state) => state.users.currentUser
+  );
+  const [isAuthorized, setIsAuthorized] = useState(currentUser !== null);
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    // TODO rewrite to RTK
-    const currentUser = localStorage.getItem("currentUser");
+    // TODO rewrite to RTK DONE
+
     if (currentUser === null) {
       throw new Error("no current user");
     }
-    const currentUserParsed: IAuthUser = JSON.parse(currentUser);
-    // TODO rewrite to RTK
-    const users = localStorage.getItem("users");
 
-    const usersParsed: IAuthUser[] = users ? JSON.parse(users) : [];
-    usersParsed.filter((user) => user.username === currentUserParsed.username);
-    usersParsed.push(currentUserParsed);
-    // TODO rewrite to RTK
-    localStorage.setItem("users", JSON.stringify(usersParsed));
-    localStorage.removeItem("currentUser");
+    // TODO rewrite to RTK DONE
+    dispatch(updateCurrentUser(null));
+    setIsAuthorized(false);
   };
 
-  if (isAuthorized()) {
+  if (isAuthorized) {
     return (
       <div className={styles.auth}>
         <a

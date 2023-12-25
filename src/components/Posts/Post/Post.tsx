@@ -22,11 +22,11 @@ export const Post = ({ post, author }: PostProps) => {
   const { title, body } = post;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentUser = useSelector<IState, IAuthUser>((state) => state.myPosts);
-
-  console.log(currentUser);
+  const currentUser = useSelector<IState, IAuthUser | null>(
+    (state) => state.users.currentUser
+  );
   const [isFavorite, setIsFavorite] = useState<boolean>(
-    !!currentUser.favorites.find((id) => id === post.id)
+    currentUser === null ? false : !!currentUser.favorites.includes(post.id)
   );
   const ref = useRef<HTMLDialogElement>(document.querySelector("#post-modal"));
 
@@ -65,15 +65,16 @@ export const Post = ({ post, author }: PostProps) => {
 
   const handleFavorite = (e: SyntheticEvent) => {
     e.stopPropagation();
-
     if (currentUser === null) {
       navigate("./signin");
       return;
     }
 
-    isFavorite
-      ? dispatch(addToFavorites(post.id))
-      : dispatch(removeFromFavorites(post.id));
+    if (isFavorite) {
+      dispatch(removeFromFavorites(post.id));
+    } else {
+      dispatch(addToFavorites(post.id));
+    }
 
     setIsFavorite((prev) => !prev);
   };

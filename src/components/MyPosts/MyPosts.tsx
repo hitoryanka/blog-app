@@ -1,34 +1,35 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { IAuthUser, IMyPost } from "../../utils/types";
 import { createPortal } from "react-dom";
 import { ModalForm } from "../Modal/ModalForm/ModalForm";
 import { Post } from "../Posts/Post/Post";
 import styles from "./myposts.module.css";
 import { useSelector } from "react-redux";
+import { IState } from "../../store";
+import { useNavigate } from "react-router";
 
 // TODO update posts
 // BUG updating post creates a new one
 
 export const MyPosts = () => {
   // TODO rewrite to RTK
-  const user = useMemo(() => {
-    const userString = localStorage.getItem("currentUser");
-    const user: IAuthUser | null = userString ? JSON.parse(userString) : null;
-    if (user === null) {
-      throw new Error("user isn't logged in");
-    }
+  const user = useSelector<IState, IAuthUser | null>(
+    (state) => state.users.currentUser
+  );
 
-    return user;
-  }, []);
-
-  const posts = useSelector(({ myPosts }) => {
-    return myPosts.posts;
-  }) as IMyPost[];
+  const posts = useSelector(({ myPosts }) => myPosts.posts) as IMyPost[];
   const [isModal, setIsModal] = useState(false);
 
   const dialogRef = useRef<HTMLDialogElement>(
     document.querySelector("#post-modal")
   );
+
+  const navigate = useNavigate();
+
+  if (user === null) {
+    navigate("./signin");
+    return;
+  }
 
   if (dialogRef.current === null) {
     throw new Error("no dialog in my-posts page");

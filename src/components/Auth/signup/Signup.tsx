@@ -2,11 +2,15 @@ import { SyntheticEvent, useRef, useState } from "react";
 import styles from "./signup.module.css";
 import { IAuthUser } from "../../../utils/types";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../../../store";
+import { addUser, updateCurrentUser } from "../../../features/users";
 
 export const Signup = () => {
   const [errMessage, setErrMessage] = useState("");
-  // TODO rewrite to RTK
-  const users: IAuthUser[] = JSON.parse(localStorage.getItem("users") ?? "[]");
+  // TODO rewrite to RTK DONE
+  const users = useSelector<IState, IAuthUser[]>((state) => state.users.users);
+  const dispatch = useDispatch();
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -46,10 +50,9 @@ export const Signup = () => {
       favorites: [],
     };
 
-    users.push(newUser);
-    // TODO rewrite to RTK
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("currentUser", JSON.stringify(newUser));
+    // TODO rewrite to RTK DONE
+    dispatch(addUser(newUser));
+    dispatch(updateCurrentUser(newUser));
 
     return navigate("/my-posts");
   };

@@ -22,3 +22,8 @@ export interface IAuthUser {
 }
 
 export type IMyPost = Omit<IPost, "userId">;
+
+export interface ILocalStorage {
+  currentUser: IAuthUser | null;
+  users: IAuthUser[];
+}

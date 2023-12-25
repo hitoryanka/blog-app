@@ -2,20 +2,20 @@ import { SyntheticEvent, useRef, useState } from "react";
 import { IAuthUser } from "../../../utils/types";
 import styles from "./signin.module.css";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import { resetUser } from "../../../features/myPosts";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../../../store";
+import { updateCurrentUser } from "../../../features/users";
 
 export const Signin = () => {
   // TODO rewrite to RTK
-  const users: IAuthUser[] = JSON.parse(localStorage.getItem("users") ?? "[]");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const users = useSelector<IState, IAuthUser[]>((state) => state.users.users);
 
   const [errMessage, setErrMessage] = useState("");
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSignin = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -43,14 +43,13 @@ export const Signin = () => {
 
     const currentUser = {
       username,
+      password,
       posts: user.posts,
       favorites: user.favorites,
     };
+    // TODO rewrite to RTK DONE
 
-    dispatch(resetUser(currentUser));
-    // TODO rewrite to RTK
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-
+    dispatch(updateCurrentUser(currentUser));
     return navigate("/my-posts");
   };
 
