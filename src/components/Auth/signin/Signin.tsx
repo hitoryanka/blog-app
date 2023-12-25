@@ -26,7 +26,6 @@ export const Signin = () => {
 
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
-
     const user = users.find((user) => user.username === username);
 
     if (!user) {
@@ -50,7 +49,7 @@ export const Signin = () => {
     // TODO rewrite to RTK DONE
 
     dispatch(updateCurrentUser(currentUser));
-    return navigate("/my-posts");
+    return navigate("/");
   };
 
   return (

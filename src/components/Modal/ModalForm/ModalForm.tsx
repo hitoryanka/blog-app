@@ -2,7 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import { IMyPost } from "../../../utils/types";
 import styles from "./modalForm.module.css";
 import { useDispatch } from "react-redux";
-import { addPost, updatePost } from "../../../features/myPosts";
+import { addPost, updatePost } from "../../../features/users";
 
 interface ModalProps {
   post?: IMyPost;

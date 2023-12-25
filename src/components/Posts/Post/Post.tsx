@@ -10,7 +10,7 @@ import {
   addToFavorites,
   removeFromFavorites,
   removePost,
-} from "../../../features/myPosts";
+} from "../../../features/users";
 import { IState } from "../../../store";
 
 interface PostProps {
@@ -25,6 +25,7 @@ export const Post = ({ post, author }: PostProps) => {
   const currentUser = useSelector<IState, IAuthUser | null>(
     (state) => state.users.currentUser
   );
+
   const [isFavorite, setIsFavorite] = useState<boolean>(
     currentUser === null ? false : !!currentUser.favorites.includes(post.id)
   );

@@ -54,7 +54,7 @@ export const Signup = () => {
     dispatch(addUser(newUser));
     dispatch(updateCurrentUser(newUser));
 
-    return navigate("/my-posts");
+    return navigate("/");
   };
 
   return (
