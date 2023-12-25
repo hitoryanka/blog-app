@@ -45,6 +45,15 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/favorites",
+    element: (
+      <>
+        <Header />
+        <Posts />
+      </>
+    ),
+  },
+  {
     path: "/signin",
     element: <Signin />,
   },
